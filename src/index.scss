@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap');
 
+* {
+	user-select:none;
+	-webkit-user-drag:none;
+	-moz-user-drag:none;
+}
+
 body {
 	font-family: 'Roboto';
   margin: 0;
@@ -9,8 +15,32 @@ body {
 }
 
 header {
-	background-color: #1d3557;
-	margin-bottom: 3em;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	background-color: #3b5d8c;
+
+	.headerGroup {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding-left: 2em;
+		padding-right: 2em;
+		border-right: solid black 3px;
+
+		&-name {
+			> h3 {
+				margin: 0.3em;
+			}
+		}
+
+		&-buttons {
+			display: flex;
+			gap: 0.2em;
+			margin-bottom: 0.5em;
+		}
+	}
 }
 
 .mazeGenerator {
@@ -24,7 +54,6 @@ header {
 	align-items: center;
 	justify-content: center;
 	margin-top: 3em;
-	margin-bottom: 3em;
 
 	&-grid {
 		display: flex;

@@ -2,7 +2,7 @@ export class MazeHandler {
 	static new(width, height) {
 		let data = {};
 
-		data.state = "waiting";
+		data.state = 0;
 		data.i = { x: 0, y: 0 };
 		data.j = { x: 0, y: 0 };
 		data.grid = [];
@@ -34,7 +34,7 @@ export class MazeHandler {
 	}
 
 	static clear(data) {
-		data.state = "waiting";
+		data.state = 3;
 
 		for (let i = 0; i < data.width; i++) {
 			for (let j = 0; j < data.height; j++) {
@@ -62,7 +62,7 @@ export class MazeHandler {
 			].filter((v) => v[0] && !v[0].visited);
 
 			if (visitables.length) {
-				data.state = "visiting";
+				data.state = 1;
 
 				let random = Math.floor(Math.random() * visitables.length);
 				let visitable = visitables[random];
@@ -84,7 +84,7 @@ export class MazeHandler {
 					y: data.i.y + visitable[2][1]
 				};
 			} else {
-				data.state = "backtracking";
+				data.state = 2;
 
 				data.i = data.stack.pop();
 				head = data.grid[data.i.x][data.i.y];
@@ -110,7 +110,7 @@ export class MazeHandler {
 		].filter((v) => v[0] && !v[0].visited);
 
 		if (visitables.length) {
-			data.state = "visiting";
+			data.state = 1;
 
 			let random = Math.floor(Math.random() * visitables.length);
 			let visitable = visitables[random];
@@ -133,7 +133,7 @@ export class MazeHandler {
 				y: data.i.y + visitable[2][1]
 			};
 		} else {
-			data.state = "backtracking";
+			data.state = 2;
 
 			head.stacked = false;
 
