@@ -12,7 +12,10 @@ export default function Maze({ mazeData }) {
 								id={cell.id}
 								walls={cell.walls}
 								visited={cell.visited}
-								selected={cell.selected}
+								head={cell.head}
+								stacked={cell.stacked}
+								start={cell.start}
+								goal={cell.goal}
 							></Cell>
 						)}
 					</div>

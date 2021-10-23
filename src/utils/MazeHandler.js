@@ -22,8 +22,27 @@ export class MazeHandler {
 					id: id++,
 					walls: 31,
 					visited: false,
-					selected: false,
+					head: false,
+					stacked: false,
+					start: false,
+					goal: false,
 				});
+			}
+		}
+
+		return data;
+	}
+
+	static clear(data) {
+		data.state = "waiting";
+
+		for (let i = 0; i < data.width; i++) {
+			for (let j = 0; j < data.height; j++) {
+				data.grid[i][j].visited = false;
+				data.grid[i][j].head = false;
+				data.grid[i][j].stacked = false;
+				data.grid[i][j].start = false;
+				data.grid[i][j].goal = false;
 			}
 		}
 
@@ -72,15 +91,16 @@ export class MazeHandler {
 			}
 		}
 
-		data.state = "waiting";
-		return data;
+		return MazeHandler.clear(data);
 	}
 
 	static generate_step(data) {
-		if (data.visitedCount === data.size) return data;
+		if (data.visitedCount === data.size) return MazeHandler.clear(data);
 
 		let head = data.grid[data.i.x][data.i.y];
 		head.visited = true;
+		head.stacked = true;
+		head.head = false;
 
 		let visitables = [
 			[data.grid[data.i.x]?.[data.i.y - 1], 1, [0, -1]],
@@ -102,6 +122,7 @@ export class MazeHandler {
 			head.walls &= ~forward;
 			newHead.walls &= ~backward;
 
+			newHead.head = true;
 			newHead.visited = true;
 			data.visitedCount++;
 			
@@ -114,8 +135,12 @@ export class MazeHandler {
 		} else {
 			data.state = "backtracking";
 
+			head.stacked = false;
+
 			data.i = data.stack.pop();
 			head = data.grid[data.i.x][data.i.y];
+
+			head.head = true;
 		}
 
 		return data;

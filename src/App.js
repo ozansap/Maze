@@ -7,7 +7,7 @@ import Maze from "./components/Maze";
 import MazeGenerator from "./components/MazeGenerator";
 
 export default function App() {
-	const [mazeData, setMazeData] = useState(MazeHandler.new(3, 2));
+	const [mazeData, setMazeData] = useState(MazeHandler.new(20, 15));
 
 	const generateMaze_full = () => {
 		const newMaze = MazeHandler.generate_full(mazeData);
@@ -19,6 +19,15 @@ export default function App() {
 		setMazeData({ ...newMaze });
 	}
 
+	const generateMaze_anim = (interval) => {
+		let loop = setInterval(() => { 
+			const newMaze = MazeHandler.generate_step(mazeData);
+			setMazeData({ ...newMaze });
+
+			if (mazeData.state === "waiting") clearInterval(loop);
+		}, interval);
+	}
+
   return (
 		<div className="App">
 			<Maze
@@ -28,6 +37,7 @@ export default function App() {
 			<MazeGenerator
 				generateMaze_full={generateMaze_full}
 				generateMaze_step={generateMaze_step}
+				generateMaze_anim={generateMaze_anim}
 			></MazeGenerator>
     </div>
   );
