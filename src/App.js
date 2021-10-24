@@ -6,18 +6,25 @@ import Header from "./components/Header";
 import Maze from "./components/Maze";
 
 export default function App() {
-	const d_width = 30;
-	const d_height = 14;
+	const [settings, setSettings] = useState({
+		width: 30,
+		height: 14,
+		size: 30,
+		speed: 50,
+	});
 
-	const [mazeData, setMazeData] = useState(MazeHandler.new(d_width, d_height));
-	const [loop, setLoop] = useState();
-	const [loopInterval, setLoopInterval] = useState(20);
+	const [mazeData, setMazeData] = useState(MazeHandler.new(settings.width, settings.height));
 	const [selectStart, setSelectStart] = useState(true);
+	const [loop, setLoop] = useState();
 
-	const newMaze = (width, height) => {
+	const newMaze = () => {
 		anim_stop();
 		setSelectStart(true);
-		setMazeData(MazeHandler.new(d_width, d_height));
+		setMazeData(MazeHandler.new(settings.width, settings.height));
+	}
+
+	const openSettingsMenu = () => {
+
 	}
 
 	const generateMaze_full = () => {
@@ -43,7 +50,7 @@ export default function App() {
 				clearInterval(newLoop);
 				setLoop(undefined);
 			};
-		}, loopInterval);
+		}, 1000 / settings.speed);
 	
 		setLoop(newLoop);
 	}
@@ -86,7 +93,7 @@ export default function App() {
 				clearInterval(newLoop);
 				setLoop(undefined);
 			};
-		}, loopInterval);
+		}, 1000 / settings.speed);
 	
 		setLoop(newLoop);
 	}
@@ -102,6 +109,7 @@ export default function App() {
 				mazeData={mazeData}
 				loop={loop}
 				newMaze={newMaze}
+				openSettingsMenu={openSettingsMenu}
 				generateMaze_full={generateMaze_full}
 				generateMaze_step={generateMaze_step}
 				generateMaze_anim_start={generateMaze_anim_start}
