@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap');
 
+$background_color: #f1faee;
+$header_color: #3b5d8c;
+
 * {
 	user-select:none;
 	-webkit-user-drag:none;
@@ -9,39 +12,66 @@
 body {
 	font-family: 'Roboto';
   margin: 0;
-	background-color: #f1faee;
+	background-color: $background_color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 header {
 	display: flex;
-	align-items: center;
+	align-items: stretch;
 	flex-direction: row;
-	background-color: #3b5d8c;
+	background-color: $header_color;
 
 	.headerGroup {
 		display: flex;
+		min-width: 25em;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 		padding-left: 2em;
 		padding-right: 2em;
-		border-right: solid black 3px;
+		border-right: solid $background_color 3px;
 
 		&-name {
+			text-align: center;
+
 			> h3 {
 				margin: 0.3em;
+				color: $background_color;
 			}
 		}
 
 		&-buttons {
 			display: flex;
-			gap: 0.2em;
+			justify-content: space-evenly;
 			margin-bottom: 0.5em;
 
 			> p {
 				margin: 0;
+				color: $background_color;
+				font-size: 0.9em;
+				padding: 0.3em;
+				
+				&.button {
+					border: solid $background_color 0.15em;
+					text-align: center;
+					width: 7em;
+					
+
+					&.animButton {
+					}
+
+					&:hover {
+						background-color: $background_color;
+						color: $header_color;
+						transition-duration: 0.2s;
+					}
+				}
+			}
+
+			> button {
+				background-color: $background_color;
+				text-decoration: none;
+				border: none;
 			}
 		}
 	}
@@ -81,15 +111,19 @@ header {
 				}
 
 				&.head {
-					background-color: #fdffb6;
+					background-color: #ffe599;
 				}
 
 				&.start {
-					background-color: #06d6a0;
+					background-color: #86b86f;
 				}
 
 				&.goal {
-					background-color: #ef233c;
+					background-color: #e06666;
+				}
+
+				&.start.goal {
+					background-color: #8e7cc3;
 				}
 			}
 		}

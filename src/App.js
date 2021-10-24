@@ -6,15 +6,17 @@ import Header from "./components/Header";
 import Maze from "./components/Maze";
 
 export default function App() {
-	const d_width = 20;
-	const d_height = 13;
+	const d_width = 30;
+	const d_height = 14;
 
 	const [mazeData, setMazeData] = useState(MazeHandler.new(d_width, d_height));
 	const [loop, setLoop] = useState();
+	const [loopInterval, setLoopInterval] = useState(20);
 	const [selectStart, setSelectStart] = useState(true);
 
 	const newMaze = (width, height) => {
 		anim_stop();
+		setSelectStart(true);
 		setMazeData(MazeHandler.new(d_width, d_height));
 	}
 
@@ -30,7 +32,7 @@ export default function App() {
 		setMazeData({ ...newMaze });
 	}
 
-	const generateMaze_anim_start = (interval) => {
+	const generateMaze_anim_start = () => {
 		if (loop) return;
 
 		let newLoop = setInterval(() => {	
@@ -41,7 +43,7 @@ export default function App() {
 				clearInterval(newLoop);
 				setLoop(undefined);
 			};
-		}, interval);
+		}, loopInterval);
 	
 		setLoop(newLoop);
 	}
@@ -56,6 +58,7 @@ export default function App() {
 	}
 
 	const solveMaze_clear = () => {
+		setSelectStart(true);
 		const newMaze = MazeHandler.clear(mazeData);
 		setMazeData({ ...newMaze });
 	}
@@ -72,7 +75,7 @@ export default function App() {
 		setMazeData({ ...newMaze });
 	}
 
-	const solveMaze_anim_start = (interval) => {
+	const solveMaze_anim_start = () => {
 		if (loop) return;
 
 		let newLoop = setInterval(() => {	
@@ -83,7 +86,7 @@ export default function App() {
 				clearInterval(newLoop);
 				setLoop(undefined);
 			};
-		}, interval);
+		}, loopInterval);
 	
 		setLoop(newLoop);
 	}

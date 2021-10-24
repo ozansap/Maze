@@ -1,7 +1,7 @@
 import { cellWalls } from "../utils/vars";
 
 export default function Cell({ mazeData, id, walls, visited, head, stacked, start, goal, solveMaze_select }) {
-	let src = "/assets/cell_";
+	let src = "/assets/cells/cell_";
 	src += (walls & cellWalls.TOP) ? "1" : "0";
 	src += (walls & cellWalls.RIGHT) ? "1" : "0";
 	src += (walls & cellWalls.BOTTOM) ? "1" : "0";

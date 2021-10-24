@@ -11,13 +11,13 @@ export default function Header({
 	solveMaze_clear,
 	anim_stop
 }) {
-	let generation_animationButton = (loop) ? 
-		<button onClick={anim_stop}>Stop Animation</button> :
-		<button onClick={() => generateMaze_anim_start(20)}>Start Animation</button>
+	let generation_animationButton = (loop) ?
+		<p className="button animButton" onClick={anim_stop}>Stop Animation</p> :
+		<p className="button animButton" onClick={generateMaze_anim_start}>Start Animation</p>
 	
 	let solution_animationButton = (loop) ? 
-		<button onClick={anim_stop}>Stop Animation</button> :
-		<button onClick={() => solveMaze_anim_start(20)}>Start Animation</button>
+		<p className="button animButton" onClick={anim_stop}>Stop Animation</p> :
+		<p className="button animButton" onClick={solveMaze_anim_start}>Start Animation</p>
 	
 	return (
 		<header>
@@ -26,7 +26,7 @@ export default function Header({
 					<h3>Maze</h3>
 				</div>
 				<div className="headerGroup-buttons">
-					<button onClick={() => newMaze(20, 15)}>New Maze</button>
+					<p className="button" onClick={newMaze}>New Maze</p>
 				</div>
 			</div>
 			
@@ -35,9 +35,9 @@ export default function Header({
 					<div className="headerGroup-name">
 						<h3>Generation</h3>
 					</div>
-					<div className="headerGroup-buttons">
-						<button onClick={generateMaze_full}>Complete</button>
-						<button onClick={generateMaze_step}>Step</button>
+				<div className="headerGroup-buttons">
+						<p className="button" onClick={generateMaze_full}>Complete</p>
+						<p className="button" onClick={generateMaze_step}>Step</p>
 						{generation_animationButton}
 					</div>
 				</div>
@@ -50,10 +50,10 @@ export default function Header({
 					</div>
 				<div className="headerGroup-buttons">
 						{mazeData.state < 5 && <p>Select two cells</p>}
-						{mazeData.state >= 5 && mazeData.state < 8 && <button onClick={solveMaze_full}>Complete</button>}
-						{mazeData.state >= 5 && mazeData.state < 8 && <button onClick={solveMaze_step}>Step</button>}
+						{mazeData.state >= 5 && mazeData.state < 8 && <p className="button" onClick={solveMaze_full}>Complete</p>}
+						{mazeData.state >= 5 && mazeData.state < 8 && <p className="button" onClick={solveMaze_step}>Step</p>}
 						{mazeData.state >= 5 && mazeData.state < 8 && solution_animationButton}
-						{mazeData.state >= 5 && mazeData.state === 8 && <button onClick={solveMaze_clear}>Clear</button>}
+						{mazeData.state >= 5 && mazeData.state === 8 && <p className="button" onClick={solveMaze_clear}>Clear</p>}
 					</div>
 				</div>
 			}
