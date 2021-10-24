@@ -3,15 +3,23 @@
 $background_color: #f1faee;
 $header_color: #3b5d8c;
 
+html {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
 * {
+	font-family: 'Roboto';
+  margin: 0;
 	user-select:none;
 	-webkit-user-drag:none;
 	-moz-user-drag:none;
 }
 
 body {
-	font-family: 'Roboto';
-  margin: 0;
 	background-color: $background_color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,6 +30,8 @@ header {
 	align-items: stretch;
 	flex-direction: row;
 	background-color: $header_color;
+	min-width: fit-content;
+	max-width: 100%;
 
 	.headerGroup {
 		display: flex;
@@ -55,15 +65,12 @@ header {
 					border: solid $background_color 0.15em;
 					text-align: center;
 					width: 7em;
-					
-
-					&.animButton {
-					}
 
 					&:hover {
 						background-color: $background_color;
 						color: $header_color;
 						transition-duration: 0.2s;
+						cursor: pointer;
 					}
 				}
 			}
@@ -105,6 +112,10 @@ header {
 			> img {
 				height: 40px;
 				background-color: #a8dadc;
+
+				&.selectable {
+					cursor: pointer;
+				}
 
 				&.stacked {
 					background-color: #457b9d;

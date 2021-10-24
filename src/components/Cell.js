@@ -9,7 +9,8 @@ export default function Cell({ mazeData, id, walls, visited, head, stacked, star
 	src += ".png";
 
 	let className = "";
-	if (visited) className += "visited";
+	if (3 <= mazeData.state && mazeData.state <= 5) className += " selectable";
+	if (visited) className += " visited";
 	if (head) className += " head";
 	if (stacked) className += " stacked";
 	if (start) className += " start";
