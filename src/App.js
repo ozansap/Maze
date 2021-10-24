@@ -7,25 +7,25 @@ import Maze from "./components/Maze";
 
 export default function App() {
 	const d_width = 20;
-	const d_height = 14;
-
+	const d_height = 13;
 
 	const [mazeData, setMazeData] = useState(MazeHandler.new(d_width, d_height));
 	const [loop, setLoop] = useState();
+	const [selectStart, setSelectStart] = useState(true);
 
 	const newMaze = (width, height) => {
-		generateMaze_anim_stop();
+		anim_stop();
 		setMazeData(MazeHandler.new(d_width, d_height));
 	}
 
 	const generateMaze_full = () => {
-		generateMaze_anim_stop();
+		anim_stop();
 		const newMaze = MazeHandler.generate_full(mazeData);
 		setMazeData({ ...newMaze });
 	}
 
 	const generateMaze_step = () => {
-		generateMaze_anim_stop();
+		anim_stop();
 		const newMaze = MazeHandler.generate_step(mazeData);
 		setMazeData({ ...newMaze });
 	}
@@ -46,7 +46,49 @@ export default function App() {
 		setLoop(newLoop);
 	}
 
-	const generateMaze_anim_stop = () => {
+	const solveMaze_select = (id) => {
+		const newMaze = (selectStart) ?
+			MazeHandler.select_start(mazeData, id) :
+			MazeHandler.select_goal(mazeData, id);
+
+		setMazeData({ ...newMaze });
+		setSelectStart(!selectStart);
+	}
+
+	const solveMaze_clear = () => {
+		const newMaze = MazeHandler.clear(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solveMaze_full = () => {
+		anim_stop();
+		const newMaze = MazeHandler.solve_full(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solveMaze_step = () => {
+		anim_stop();
+		const newMaze = MazeHandler.solve_step(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solveMaze_anim_start = (interval) => {
+		if (loop) return;
+
+		let newLoop = setInterval(() => {	
+			const newMaze = MazeHandler.solve_step(mazeData);
+			setMazeData({ ...newMaze });
+
+			if (mazeData.state >= 8) {
+				clearInterval(newLoop);
+				setLoop(undefined);
+			};
+		}, interval);
+	
+		setLoop(newLoop);
+	}
+
+	const anim_stop = () => {
 		clearInterval(loop);
 		setLoop(undefined);
 	}
@@ -60,11 +102,16 @@ export default function App() {
 				generateMaze_full={generateMaze_full}
 				generateMaze_step={generateMaze_step}
 				generateMaze_anim_start={generateMaze_anim_start}
-				generateMaze_anim_stop={generateMaze_anim_stop}
+				solveMaze_full={solveMaze_full}
+				solveMaze_step={solveMaze_step}
+				solveMaze_anim_start={solveMaze_anim_start}
+				solveMaze_clear={solveMaze_clear}
+				anim_stop={anim_stop}
 			></Header>
 
 			<Maze
 				mazeData={mazeData}
+				solveMaze_select={solveMaze_select}
 			></Maze>
     </div>
   );

@@ -39,6 +39,10 @@ header {
 			display: flex;
 			gap: 0.2em;
 			margin-bottom: 0.5em;
+
+			> p {
+				margin: 0;
+			}
 		}
 	}
 }

@@ -146,12 +146,90 @@ export class MazeHandler {
 		return data;
 	}
 
+	static select_start(data, id) {
+		data.grid[data.i.x][data.i.y].start = false;
+
+		const x = Math.floor(id / data.height);
+		const y = id - (x * data.height);
+		
+		data.grid[x][y].start = true;
+		data.i = {
+			x: x,
+			y: y,
+		}
+
+		data.state = Math.max(4, data.state);
+		return data;
+	}
+
+	static select_goal(data, id) {
+		data.grid[data.j.x][data.j.y].goal = false;
+
+		const x = Math.floor(id / data.height);
+		const y = id - (x * data.height);
+		
+		data.grid[x][y].goal = true;
+		data.j = {
+			x: x,
+			y: y,
+		}
+
+		data.state = 5;
+		return data;
+	}
+
 	static solve_full(data) {
+		while (data.state !== 8) {
+			data = MazeHandler.solve_step(data);
+		}
 
 		return data;
 	}
 
 	static solve_step(data) {
+		if (data.i.x === data.j.x && data.i.y === data.j.y) {
+			data.state = 8;
+			return data;
+		}
+
+		let head = data.grid[data.i.x][data.i.y];
+		head.visited = true;
+		head.stacked = true;
+		head.head = false;
+
+		let visitables = [
+			[data.grid[data.i.x]?.[data.i.y - 1], 1, [0, -1]],
+			[data.grid[data.i.x + 1]?.[data.i.y], 2, [1, 0]],
+			[data.grid[data.i.x]?.[data.i.y + 1], 4, [0, 1]],
+			[data.grid[data.i.x - 1]?.[data.i.y], 8, [-1, 0]],
+		].filter((v) => v[0] && !v[0].visited && !((v[1] < 4 ? v[1] << 2 : v[1] >> 2) & v[0].walls));
+
+		if (visitables.length) {
+			data.state = 6;
+
+			let random = Math.floor(Math.random() * visitables.length);
+			let visitable = visitables[random];
+			let newHead = visitable[0];
+
+			newHead.head = true;
+			newHead.visited = true;
+			
+			head = newHead;
+			data.stack.push(data.i);
+			data.i = {
+				x: data.i.x + visitable[2][0],
+				y: data.i.y + visitable[2][1]
+			};
+		} else {
+			data.state = 7;
+
+			head.stacked = false;
+
+			data.i = data.stack.pop();
+			head = data.grid[data.i.x][data.i.y];
+
+			head.head = true;
+		}
 
 		return data;
 	}
