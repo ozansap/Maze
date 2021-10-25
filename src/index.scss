@@ -17,6 +17,7 @@ $header_color: #3b5d8c;
 
 body {
 	background-color: $background_color;
+	overflow: hidden;
 }
 
 header {
@@ -51,12 +52,18 @@ header {
 			font-size: 1em;
 			margin-bottom: 0.5em;
 
+			> p {
+				padding: 0.45em;
+			}
+
 			&-button-wrapper {
 				display: flex;
 				justify-content: center;
+				max-width: 6em;
+				flex-basis: 100%;
 
 				> .button {
-					width: 6em;
+					flex-basis: 100%;
 					padding: 0.3em;
 					border: solid $background_color 0.15em;
 					text-align: center;
@@ -79,10 +86,8 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	overflow: auto;
 	margin-top: 3em;
 	margin-bottom: 3em;
-
 
 	&-grid {
 		display: flex;
@@ -94,7 +99,6 @@ header {
 
 			> img {
 				background-color: #a8dadc;
-				height: 40px;
 
 				&.selectable {
 					cursor: pointer;

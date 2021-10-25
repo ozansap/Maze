@@ -1,8 +1,8 @@
 import Cell from "./Cell";
 
-export default function Maze({ mazeData, solveMaze_select }) {
+export default function Maze({ mazeData, size, solve_select }) {
 	return (
-		<div className="maze">
+		<div className="maze" id="maze">
 			<div className="maze-grid">
 				{mazeData.grid.map((row, i) =>
 					<div className="maze-grid-column" key={i}>
@@ -10,6 +10,7 @@ export default function Maze({ mazeData, solveMaze_select }) {
 							<Cell
 								key={cell.id}
 								mazeData={mazeData}
+								size={size}
 								id={cell.id}
 								walls={cell.walls}
 								visited={cell.visited}
@@ -17,7 +18,7 @@ export default function Maze({ mazeData, solveMaze_select }) {
 								stacked={cell.stacked}
 								start={cell.start}
 								goal={cell.goal}
-								solveMaze_select={solveMaze_select}
+								solve_select={solve_select}
 							></Cell>
 						)}
 					</div>

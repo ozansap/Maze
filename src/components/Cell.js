@@ -1,6 +1,6 @@
 import { cellWalls } from "../utils/vars";
 
-export default function Cell({ mazeData, id, walls, visited, head, stacked, start, goal, solveMaze_select }) {
+export default function Cell({ mazeData, size, id, walls, visited, head, stacked, start, goal, solve_select }) {
 	let src = "/assets/cells/cell_";
 	src += (walls & cellWalls.TOP) ? "1" : "0";
 	src += (walls & cellWalls.RIGHT) ? "1" : "0";
@@ -18,10 +18,17 @@ export default function Cell({ mazeData, id, walls, visited, head, stacked, star
 
 	let attributes = {};
 	if (3 <= mazeData.state && mazeData.state <= 5) {
-		attributes.onClick = () => solveMaze_select(id);
+		attributes.onClick = () => solve_select(id);
 	}
 
 	return (
-		<img id={id} src={src} alt="" className={className} {...attributes}/>
+		<img
+			id={id}
+			style={{height: size + "px"}}
+			src={src}
+			alt=""
+			className={className}
+			{...attributes}
+		/>
 	)
 }

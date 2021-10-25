@@ -2,36 +2,38 @@ export default function Header({
 	mazeData,
 	loop,
 	newMaze,
-	openSettingsMenu,
-	generateMaze_full,
-	generateMaze_step,
-	generateMaze_anim_start,
-	solveMaze_full,
-	solveMaze_step,
-	solveMaze_anim_start,
-	solveMaze_clear,
+	settingsMenu_open,
+	generate_full,
+	generate_step,
+	generate_anim_start,
+	solve_full,
+	solve_step,
+	solve_anim_start,
+	solve_clear,
 	anim_stop
 }) {
 	let generation_animationButton = (loop) ?
 		<p className="button animButton" onClick={anim_stop}>Stop</p> :
-		<p className="button animButton" onClick={generateMaze_anim_start}>Start</p>
+		<p className="button animButton" onClick={generate_anim_start}>Start</p>
 	
 	let solution_animationButton = (loop) ? 
 		<p className="button animButton" onClick={anim_stop}>Stop</p> :
-		<p className="button animButton" onClick={solveMaze_anim_start}>Start</p>
+		<p className="button animButton" onClick={solve_anim_start}>Start</p>
 	
 	return (
-		<header>
+		<header id="header">
 			<div className="headerGroup">
 				<div className="headerGroup-top">
 					<h3>Maze</h3>
 				</div>
 				<div className="headerGroup-bottom">
+					{mazeData.state !== 0 &&
+						<div className="headerGroup-bottom-button-wrapper">
+							<p className="button" onClick={newMaze}>New</p>
+						</div>
+					}
 					<div className="headerGroup-bottom-button-wrapper">
-						<p className="button" onClick={newMaze}>New</p>
-					</div>
-					<div className="headerGroup-bottom-button-wrapper">
-						<p className="button" onClick={openSettingsMenu}>Settings</p>
+						<p className="button" onClick={settingsMenu_open}>Settings</p>
 					</div>
 				</div>
 			</div>
@@ -39,14 +41,14 @@ export default function Header({
 			{(mazeData.state < 3) &&
 				<div className="headerGroup">
 					<div className="headerGroup-top">
-						<h3>Generation</h3>
+						<h3>Generate</h3>
 					</div>
 					<div className="headerGroup-bottom">
 						<div className="headerGroup-bottom-button-wrapper">
-							<p className="button" onClick={generateMaze_full}>Complete</p>
+							<p className="button" onClick={generate_full}>Complete</p>
 						</div>
 						<div className="headerGroup-bottom-button-wrapper">
-							<p className="button" onClick={generateMaze_step}>Step</p>
+							<p className="button" onClick={generate_step}>Step</p>
 						</div>
 						<div className="headerGroup-bottom-button-wrapper">
 							{generation_animationButton}
@@ -58,18 +60,18 @@ export default function Header({
 			{(mazeData.state >= 3) &&
 				<div className="headerGroup">
 					<div className="headerGroup-top">
-						<h3>Solution</h3>
+						<h3>Solve</h3>
 					</div>
 					<div className="headerGroup-bottom">
 						{mazeData.state < 5 && <p>Select two cells</p>}
 						{mazeData.state >= 5 && mazeData.state < 8 &&
 							<div className="headerGroup-bottom-button-wrapper">
-								<p className="button" onClick={solveMaze_full}>Complete</p>
+								<p className="button" onClick={solve_full}>Complete</p>
 							</div>
 						}
 						{mazeData.state >= 5 && mazeData.state < 8 &&
 							<div className="headerGroup-bottom-button-wrapper">
-								<p className="button" onClick={solveMaze_step}>Step</p>
+								<p className="button" onClick={solve_step}>Step</p>
 							</div>
 						}
 						{mazeData.state >= 5 && mazeData.state < 8 &&
@@ -79,7 +81,7 @@ export default function Header({
 						}
 						{mazeData.state >= 5 && mazeData.state === 8 &&
 							<div className="headerGroup-bottom-button-wrapper">
-								<p className="button" onClick={solveMaze_clear}>Clear</p>
+								<p className="button" onClick={solve_clear}>Clear</p>
 							</div>
 						}
 					</div>
