@@ -1,17 +1,82 @@
+import { MazeHandler } from "../utils/MazeHandler";
+
 export default function Header({
 	mazeData,
+	setMazeData,
+	settings,
 	loop,
+	setLoop,
+	setSelectStart,
 	newMaze,
-	settingsMenu_open,
-	generate_full,
-	generate_step,
-	generate_anim_start,
-	solve_full,
-	solve_step,
-	solve_anim_start,
-	solve_clear,
-	anim_stop
+	anim_stop,
+	setSettingsMenu
 }) {
+	const settingsMenu_open = () => {
+		setSettingsMenu(true);
+	}
+
+	const generate_full = () => {
+		anim_stop();
+		const newMaze = MazeHandler.generate_full(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const generate_step = () => {
+		anim_stop();
+		const newMaze = MazeHandler.generate_step(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const generate_anim_start = () => {
+		if (loop) return;
+
+		let newLoop = setInterval(() => {	
+			const newMaze = MazeHandler.generate_step(mazeData);
+			setMazeData({ ...newMaze });
+
+			if (mazeData.state >= 3) {
+				clearInterval(newLoop);
+				setLoop(undefined);
+			};
+		}, 1000 / settings.speed);
+	
+		setLoop(newLoop);
+	}
+
+	const solve_clear = () => {
+		setSelectStart(true);
+		const newMaze = MazeHandler.clear(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solve_full = () => {
+		anim_stop();
+		const newMaze = MazeHandler.solve_full(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solve_step = () => {
+		anim_stop();
+		const newMaze = MazeHandler.solve_step(mazeData);
+		setMazeData({ ...newMaze });
+	}
+
+	const solve_anim_start = () => {
+		if (loop) return;
+
+		let newLoop = setInterval(() => {	
+			const newMaze = MazeHandler.solve_step(mazeData);
+			setMazeData({ ...newMaze });
+
+			if (mazeData.state >= 8) {
+				clearInterval(newLoop);
+				setLoop(undefined);
+			};
+		}, 1000 / settings.speed);
+	
+		setLoop(newLoop);
+	}
+
 	let generation_animationButton = (loop) ?
 		<p className="button animButton" onClick={anim_stop}>Stop</p> :
 		<p className="button animButton" onClick={generate_anim_start}>Start</p>

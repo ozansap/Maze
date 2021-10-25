@@ -1,4 +1,8 @@
-export default function Settings({ settings, setSettings, settingsMenu_close }) {
+export default function Settings({ settings, setSettings, settingsMenu, setSettingsMenu }) {
+	
+	const settingsMenu_close = () => {
+		setSettingsMenu(false);
+	}
 	
 	const changeWidth = (e) => {
 
