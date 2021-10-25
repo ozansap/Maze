@@ -3,11 +3,10 @@ import { MazeHandler } from "../utils/MazeHandler";
 export default function Header({
 	mazeData,
 	setMazeData,
-	settings,
 	loop,
-	setLoop,
 	setSelectStart,
 	newMaze,
+	anim_start,
 	anim_stop,
 	setSettingsMenu
 }) {
@@ -25,22 +24,6 @@ export default function Header({
 		anim_stop();
 		const newMaze = MazeHandler.generate_step(mazeData);
 		setMazeData({ ...newMaze });
-	}
-
-	const generate_anim_start = () => {
-		if (loop) return;
-
-		let newLoop = setInterval(() => {	
-			const newMaze = MazeHandler.generate_step(mazeData);
-			setMazeData({ ...newMaze });
-
-			if (mazeData.state >= 3) {
-				clearInterval(newLoop);
-				setLoop(undefined);
-			};
-		}, 1000 / settings.speed);
-	
-		setLoop(newLoop);
 	}
 
 	const solve_clear = () => {
@@ -61,29 +44,13 @@ export default function Header({
 		setMazeData({ ...newMaze });
 	}
 
-	const solve_anim_start = () => {
-		if (loop) return;
-
-		let newLoop = setInterval(() => {	
-			const newMaze = MazeHandler.solve_step(mazeData);
-			setMazeData({ ...newMaze });
-
-			if (mazeData.state >= 8) {
-				clearInterval(newLoop);
-				setLoop(undefined);
-			};
-		}, 1000 / settings.speed);
-	
-		setLoop(newLoop);
-	}
-
 	let generation_animationButton = (loop) ?
 		<p className="button animButton" onClick={anim_stop}>Stop</p> :
-		<p className="button animButton" onClick={generate_anim_start}>Start</p>
+		<p className="button animButton" onClick={anim_start}>Start</p>
 	
 	let solution_animationButton = (loop) ? 
 		<p className="button animButton" onClick={anim_stop}>Stop</p> :
-		<p className="button animButton" onClick={solve_anim_start}>Start</p>
+		<p className="button animButton" onClick={anim_start}>Start</p>
 	
 	return (
 		<header id="header">

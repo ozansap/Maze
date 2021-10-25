@@ -1,23 +1,29 @@
-export default function Settings({ settings, setSettings, settingsMenu, setSettingsMenu }) {
+import { useState } from "react";
+
+export default function Settings({ settings, setSettings, settingsMenu, setSettingsMenu, newMaze, anim_restart }) {
+		const [newSettings, setNewSettings] = useState(settings);
 	
 	const settingsMenu_close = () => {
 		setSettingsMenu(false);
-	}
-	
-	const changeWidth = (e) => {
 
-	}
+		const width = Math.max(Math.floor(newSettings.width), 1);
+		const height = Math.max(Math.floor(newSettings.height), 1);
+		const speed = Math.max(Math.floor(newSettings.speed), 1);
 
-	const changeHeight = (e) => {
+		if (width !== settings.width || height !== settings.height) {
+			newMaze({ width, height });
+		}
 
-	}
+		if (speed !== settings.speed) {
+			anim_restart({ speed });
+		}
 
-	const changeSpeed = (e) => {
-
+		setSettings({ width, height, speed });
+		setNewSettings({ width, height, speed });
 	}
 
 	return (
-		<div className="settingsWindow" style={{display: "none"}}>
+		<div className="settingsWindow" style={{display: settingsMenu ? "flex" : "none"}}>
 			<div
 				className="settingsWindow-bg"
 				onClick={settingsMenu_close}
@@ -28,7 +34,8 @@ export default function Settings({ settings, setSettings, settingsMenu, setSetti
 					<input
 						type="number"
 						placeholder={settings.width}
-						onChange={changeWidth}
+						value={newSettings.width}
+						onChange={(e) => { setNewSettings({...newSettings, width: parseInt(e.target.value) || ''}) }}
 					></input>
 				</div>
 				<div className="settingsWindow-main-setting_container">
@@ -36,7 +43,8 @@ export default function Settings({ settings, setSettings, settingsMenu, setSetti
 					<input
 						type="number"
 						placeholder={settings.height}
-						onChange={changeHeight}
+						value={newSettings.height}
+						onChange={(e) => { setNewSettings({...newSettings, height: parseInt(e.target.value) || ''}) }}
 					></input>
 				</div>
 				<div className="settingsWindow-main-setting_container">
@@ -44,7 +52,8 @@ export default function Settings({ settings, setSettings, settingsMenu, setSetti
 					<input
 						type="number"
 						placeholder={settings.speed}
-						onChange={changeSpeed}
+						value={newSettings.speed}
+						onChange={(e) => { setNewSettings({...newSettings, speed: parseInt(e.target.value) || ''}) }}
 					></input>
 				</div>
 			</div>

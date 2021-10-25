@@ -68,7 +68,7 @@ header {
 					border: solid $background_color 0.15em;
 					text-align: center;
 
-					&:hover {
+					&:hover, &:focus {
 						background-color: $background_color;
 						color: $header_color;
 						transition-duration: 0.2s;
@@ -128,6 +128,86 @@ header {
 	}
 }
 
+.settingsWindow {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&-bg {
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.6);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+
+		&:hover  {
+			cursor: pointer;
+		}
+	}
+	
+
+	&-main {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		z-index: 2;
+		border: solid $background_color 5px;
+		background-color: $header_color;
+		max-width: 20em;
+		max-height: 20em;
+		border-radius: 1em;
+		padding: 1em;
+		color: $background_color;
+		font-size: 2em;
+		gap: 1em;
+
+		&-setting_container {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			height: 100%;
+			gap: 2em;
+
+			> label {
+				text-align: left;
+			}
+			
+			> input {
+				margin-left: auto;
+				background-color: rgba(0, 0, 0, 0.2);
+				border: solid $header_color 2px;
+				color: $background_color;
+				font-size: 1em;
+				box-sizing: border-box;
+
+				&:focus-visible {
+					outline: none;
+					border: solid $background_color 2px;
+				}
+
+				&::placeholder {
+					color: rgba($background_color, 0.6);
+				}
+			}
+		}
+
+		&:last-child {
+			margin: auto;
+		}
+	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 @media screen and (max-width: 800px) {
 	header {
@@ -138,6 +218,19 @@ header {
 			&:first-child {
 				border-right: none;
 				border-bottom: solid $background_color 0.15em;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.settingsWindow {
+
+		&-main {
+			font-size: 1em;
+
+			&-setting_container {
+				gap: 1em;
 			}
 		}
 	}

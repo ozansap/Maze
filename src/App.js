@@ -19,15 +19,41 @@ export default function App() {
 	const [settingsMenu, setSettingsMenu] = useState(false);
 	
 	
-	const newMaze = () => {
+	const newMaze = ({ width, height }) => {
 		anim_stop();
 		setSelectStart(true);
-		setMazeData(MazeHandler.new(settings.width, settings.height));
+		setMazeData(MazeHandler.new(
+			width || settings.width,
+			height || settings.width
+		));
 	}
 	
+	const anim_start = ({ speed }) => {
+		const nextStep = (mazeData.state < 3) ? MazeHandler.generate_step : MazeHandler.solve_step;
+
+		let newLoop = setInterval(() => {	
+			const newMaze = nextStep(mazeData);
+			setMazeData({ ...newMaze });
+
+			if (mazeData.state === 3 || mazeData.state === 8) {
+				clearInterval(newLoop);
+				setLoop(undefined);
+			};
+		}, 1000 / (speed || settings.speed));
+	
+		setLoop(newLoop);
+	}
+
 	const anim_stop = () => {
 		clearInterval(loop);
 		setLoop(undefined);
+	}
+
+	const anim_restart = ({ speed }) => {
+		if (!loop) return;
+
+		clearInterval(loop);
+		anim_start({ speed });
 	}
 
   return (
@@ -35,11 +61,10 @@ export default function App() {
 			<Header
 				mazeData={mazeData}
 				setMazeData={setMazeData}
-				settings={settings}
 				loop={loop}
-				setLoop={setLoop}
 				setSelectStart={setSelectStart}
 				newMaze={newMaze}
+				anim_start={anim_start}
 				anim_stop={anim_stop}
 				setSettingsMenu={setSettingsMenu}
 			></Header>
@@ -57,6 +82,8 @@ export default function App() {
 				setSettings={setSettings}
 				settingsMenu={settingsMenu}
 				setSettingsMenu={setSettingsMenu}
+				newMaze={newMaze}
+				anim_restart={anim_restart}
 			></Settings>
     </div>
   );
