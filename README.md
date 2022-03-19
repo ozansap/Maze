@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Maze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a demonstration of maze generation and solution using randomized depth first search. This webapp is made using [React](https://reactjs.org/).
 
-## Available Scripts
+The web app is hosted at [maze.swagnemite.com](https://maze.swagnemite.com).
 
-In the project directory, you can run:
+## Features
+- [x] - Variable width and height of the maze
+- [x] - Complete the algorithm instantly 
+- [x] - Progress the algorithm one step at a time
+- [x] - Play/pause the algorithm as an animation
+- [x] - Variable animation speed
+- [x] - Works on mobile
 
-### `npm start`
+## How does it work
+### Generation
+1. A grid is created with each cell having 4 walls around it
+2. Randomized depth first search starts from top left cell
+3. Visited cells are connected and added to a stack
+4. When the head has nowhere it can move to, it backtracks by popping the stack until a legal move is found
+5. Steps 3 and 4 repeat until the visited cell count reaches total cell count
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Solution
+1. Randomized depth first search starts from the first selected cell. The head can only move to connected cells
+2. Visited cells are added to a stack
+3. When the head has nowhere it can move to, it backtracks by popping the stack until a legal move is found
+4. Steps 3 and 4 repeat until the head reaches second selected cell
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Planned Features
+- [ ] - Adding more algorithms and comparing them
+- [ ] - Allowing the user to solve the maze on their own
 
-### `npm test`
+## Significance
+This is my second webapp. I used this project to learn React and get into component based web development. React development process is a lot user friendlier and intuitive compared to vanilla web development. Components and Props are similar to classes and Object Oriented Programming and thus more coherent.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I also wanted this website to properly work on mobile. I had to learn responsive design techniques and how to properly make use of CSS. However, it was harder than I expected to convert my existing design to work responsively. I had to redesign the website a second time after learning responsive design techniques. I plan on making my next projects mobile first. Mobile first development will make it easier to create dynamic webpages.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technologies Used
+* [React](https://www.npmjs.com/package/react) to have a more streamlined development experience
+* [create-react-app](https://www.npmjs.com/package/create-react-app) to generate and build the webpage 
+* [sass](https://www.npmjs.com/package/sass) to have cleaner CSS files
