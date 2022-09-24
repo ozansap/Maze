@@ -2,7 +2,7 @@
 
 This is a demonstration of maze generation and solution using randomized depth first search. This webapp is made using [React](https://reactjs.org/).
 
-The web app is hosted at [maze.swagnemite.com](https://maze.swagnemite.com).
+The web app is hosted at [maze.ozansap.com](https://maze.ozansap.com).
 
 ## Features
 - [x] - Variable width and height of the maze
